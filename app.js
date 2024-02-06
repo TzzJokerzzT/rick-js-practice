@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
         characterImage.src = items.image;
         characterImage.alt = items.name;
         const characterName = document.createElement("h2");
+        characterName.classList.add("character_name");
         characterName.textContent = items.name;
+        character.appendChild(characterCard);
         characterCard.appendChild(characterImage);
         characterCard.appendChild(characterName);
-        character.appendChild(characterCard);
       });
     })
     .catch((error) => console.error("Error fetching data:", error));

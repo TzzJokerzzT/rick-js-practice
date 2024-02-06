@@ -35,8 +35,21 @@ body {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  gap: 6px;
+  & .character_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 6px;
+  }
   & .character_image {
-    width: 50px;
+    width: 100px;
+    height: 100px;
+  }
+  & .character_name {
+    font-size: 12px;
   }
 }
 
