@@ -30,18 +30,18 @@ body {
 }
 
 .content_container {
-  background-color: yellow;
   grid-area: content;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(4, 1fr);
   gap: 6px;
+  margin: 10px;
   & .character_card {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid white;
+    border: 1px solid rgb(9, 172, 77);
     border-radius: 6px;
   }
   & .character_image {
@@ -51,6 +51,11 @@ body {
   & .character_name {
     font-size: 12px;
   }
+}
+
+.active {
+  background: black;
+  color: white;
 }
 
 .footer {
