@@ -1,6 +1,7 @@
 const character = document.getElementById("character_container");
 const backBtn = document.getElementById("back_btn");
 const nextBtn = document.getElementById("next_btn");
+const searchBtn = document.getElementById("search_btn");
 const search = document.getElementById("search_input");
 const pagination = document.getElementById("pagination_container");
 
@@ -20,22 +21,25 @@ function paginationBtns() {
     btn.classList.add("pagination_btn");
     btn.textContent = i;
     btn.addEventListener("click", function () {
-      pageNumber = i;
+      number = i;
       loadCharacter(pageNumber, "");
-      highlightBtn();
+      highlightBtn(pageNumber);
     });
     pagination.appendChild(btn);
   }
 }
 
-paginationBtns();
+paginationBtns(pageNumber);
 
-function highlightBtn() {
+function highlightBtn(number) {
   const btns = document.querySelectorAll("button");
   btns.forEach((items) => {
-    parseInt(items.textContent) === pageNumber
-      ? items.classList.add("active")
-      : items.classList.remove("active");
+    items.classList.remove("active");
+    if (parseInt(items.textContent) === number) {
+      items.classList.add("active");
+    }
+    // ? items.classList.add("active")
+    // : items.classList.remove("active");
   });
 }
 
@@ -71,14 +75,16 @@ function loadCharacter(page, name) {
 loadCharacter(pageNumber, character_Name);
 
 backBtn.addEventListener("click", function () {
+  highlightBtn(pageNumber);
   changePage(-1);
 });
 
 nextBtn.addEventListener("click", function () {
+  highlightBtn(pageNumber);
   changePage(1);
 });
 
-search.addEventListener("input", function () {
+searchBtn.addEventListener("click", function () {
   const name = search.value.toLowerCase();
   loadCharacter("", name);
 });
