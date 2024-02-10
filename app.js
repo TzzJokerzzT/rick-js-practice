@@ -14,7 +14,7 @@ function changePage(offset) {
   loadCharacter(pageNumber, "");
 }
 
-function paginationBtns() {
+function paginationBtns(number) {
   pagination.innerHTML = "";
   for (let i = 1; i <= 42; i++) {
     const btn = document.createElement("button");
@@ -22,8 +22,8 @@ function paginationBtns() {
     btn.textContent = i;
     btn.addEventListener("click", function () {
       number = i;
-      loadCharacter(pageNumber, "");
-      highlightBtn(pageNumber);
+      loadCharacter(number, "");
+      highlightBtn(number);
     });
     pagination.appendChild(btn);
   }
@@ -58,15 +58,29 @@ function loadCharacter(page, name) {
         const characterName = document.createElement("h1");
         characterName.classList.add("character_name");
         characterName.textContent = items.name;
+        const characterStatus = document.createElement("p");
+        characterStatus.classList.add("character_status");
+        characterStatus.textContent = items.status;
+        const characterGender = document.createElement("p");
+        characterGender.classList.add("character_gender");
+        characterGender.textContent = items.gender;
         character.appendChild(characterCard);
         characterCard.appendChild(characterImage);
         characterCard.appendChild(characterName);
+        characterCard.appendChild(characterStatus);
+        characterCard.appendChild(characterGender);
         pageNumber === 1
           ? (backBtn.disabled = true)
           : (backBtn.disabled = false);
         pageNumber === 42
           ? (nextBtn.disabled = true)
           : (nextBtn.disabled = false);
+        if (characterStatus.textContent === "Alive") {
+          characterStatus.classList.add("alive");
+        }
+        if (characterStatus.textContent === "Dead") {
+          characterStatus.classList.add("dead");
+        }
       });
     })
     .catch((error) => console.error("Error fetching data:", error));
