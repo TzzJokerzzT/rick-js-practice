@@ -22,15 +22,35 @@
       />
       <button class="btn_search" id="search_btn">Search</button>
     </header>
-    <aside class="sidebar">Sidebar</aside>
-    <main class="content_container" id="character_container"></main>
+    <aside class="sidebar" id="sidebar_nav">
+      <h1>Status</h1>
+      <section class="btn_status">
+        <li>
+          <button id="alive_btn">Alive</button>
+          <button id="dead_btn">Dead</button>
+          <button id="unknown_btn">Unknown</button>
+        </li>
+      </section>
+      <h1>Gender</h1>
+      <section class="gender_status">
+        <li>
+          <button id="female_btn">Female</button
+          ><button id="male_btn">Male</button
+          ><button id="genderless_btn">Genderless</button
+          ><button id="unknown_btn">Unknown</button>
+        </li>
+      </section>
+    </aside>
+    <main class="content_container" id="character_container">
+      <div id="loading" class="loader"></div>
+    </main>
     <!-- <main class="loading_overlay">
       <div class="loading_container">
         <div class="loading"></div>
         <p>Loading</p>
       </div>
     </main> -->
-    <!-- <div class="loader"></div> -->
+
     <!-- <div class="loading_container">
       <div class="loading"></div>
     </div> -->

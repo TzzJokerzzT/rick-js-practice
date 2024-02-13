@@ -4,9 +4,15 @@ const nextBtn = document.getElementById("next_btn");
 const searchBtn = document.getElementById("search_btn");
 const search = document.getElementById("search_input");
 const pagination = document.getElementById("pagination_container");
+const loading = document.getElementById("loading");
+const sidebar = document.getElementById("sidebar_nav");
+const btnAlive = document.getElementById("alive_btn");
 
 let pageNumber = 1;
 let character_Name = "";
+let character_Status = "";
+let character_Species = "";
+let character_Gender = "";
 
 //Funciones
 function changePage(offset) {
@@ -29,6 +35,10 @@ function paginationBtns(number) {
   }
 }
 
+btnAlive.addEventListener("click", function () {
+  c
+});
+
 paginationBtns(pageNumber);
 
 function highlightBtn(number) {
@@ -44,11 +54,14 @@ function highlightBtn(number) {
 }
 
 function loadCharacter(page, name) {
+  loading.style.display = "block";
   fetch(`https://rickandmortyapi.com/api/character/?name=${name}&page=${page}`)
     .then((response) => response.json())
     .then((data) => {
+      loading.style.display = "none";
       character.innerHTML = "";
       data.results.map((items) => {
+        //Cards
         const characterCard = document.createElement("section");
         characterCard.classList.add("character_card");
         const characterImage = document.createElement("img");
@@ -83,7 +96,10 @@ function loadCharacter(page, name) {
         }
       });
     })
-    .catch((error) => console.error("Error fetching data:", error));
+    .catch((error) => {
+      loading.style.display = "none";
+      console.error("Error fetching data:", error);
+    });
 }
 
 loadCharacter(pageNumber, character_Name);
