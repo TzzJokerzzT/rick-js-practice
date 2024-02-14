@@ -11,6 +11,7 @@ const btnDead = document.getElementById("dead_btn");
 const btnUnknown = document.getElementById("unknown_btn");
 const btnFemale = document.getElementById("female_btn");
 const btnMale = document.getElementById("male_btn");
+const btnGenderless = document.getElementById("genderless_btn");
 const btnGenderUnknown = document.getElementById("unknown_gender_btn");
 const btnReset = document.getElementById("resetBtn");
 
@@ -44,7 +45,6 @@ function paginationBtns(number) {
 paginationBtns(pageNumber);
 
 function statusCharacter(status) {
-  console.log(character_Status);
   character_Status = status;
 
   // sidebar.innerHTML = "";
@@ -62,6 +62,10 @@ function statusCharacter(status) {
   // });
 }
 
+function genderCharacter(gender) {
+  character_Gender = gender;
+}
+
 function highlightBtn(number) {
   const btns = document.querySelectorAll("button");
   btns.forEach((items) => {
@@ -74,10 +78,10 @@ function highlightBtn(number) {
   });
 }
 
-function loadCharacter(page, name, status) {
+function loadCharacter(page, name, status, gender) {
   loading.style.display = "block";
   fetch(
-    `https://rickandmortyapi.com/api/character/?name=${name}&page=${page}&status=${status}`
+    `https://rickandmortyapi.com/api/character/?name=${name}&page=${page}&status=${status}&gender=${gender}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -125,7 +129,7 @@ function loadCharacter(page, name, status) {
     });
 }
 
-loadCharacter(pageNumber, character_Name, character_Status);
+loadCharacter(pageNumber, character_Name, character_Status, character_Gender);
 
 backBtn.addEventListener("click", function () {
   highlightBtn(pageNumber);
@@ -139,27 +143,47 @@ nextBtn.addEventListener("click", function () {
 
 searchBtn.addEventListener("click", function () {
   const name = search.value.toLowerCase();
-  loadCharacter("", name, "");
+  loadCharacter("", name, "", "");
 });
 
 btnAlive.addEventListener("click", function () {
   statusCharacter(btnAlive.value);
-  loadCharacter(pageNumber, "", character_Status);
+  loadCharacter(pageNumber, "", character_Status, "");
 });
 
 btnDead.addEventListener("click", function () {
   statusCharacter(btnDead.value);
-  loadCharacter(pageNumber, "", character_Status);
+  loadCharacter(pageNumber, "", character_Status, "");
 });
 
 btnUnknown.addEventListener("click", function () {
   statusCharacter(btnUnknown.value);
-  loadCharacter(pageNumber, "", character_Status);
+  loadCharacter(pageNumber, "", character_Status, "");
+});
+
+btnFemale.addEventListener("click", function () {
+  genderCharacter(btnFemale.value);
+  loadCharacter(pageNumber, "", "", character_Gender);
+});
+
+btnMale.addEventListener("click", function () {
+  genderCharacter(btnMale.value);
+  loadCharacter(pageNumber, "", "", character_Gender);
+});
+
+btnGenderless.addEventListener("click", function () {
+  genderCharacter(btnGenderless.value);
+  loadCharacter(pageNumber, "", "", character_Gender);
+});
+
+btnGenderUnknown.addEventListener("click", function () {
+  genderCharacter(btnGenderUnknown.value);
+  loadCharacter(pageNumber, "", "", character_Gender);
 });
 
 resetBtn.addEventListener("click", function () {
   search.value = "";
-  loadCharacter(1, "", "");
+  loadCharacter(1, "", "", "");
   statusCharacter("");
   highlightBtn(1);
   paginationBtns(1);
