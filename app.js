@@ -7,6 +7,12 @@ const pagination = document.getElementById("pagination_container");
 const loading = document.getElementById("loading");
 const sidebar = document.getElementById("sidebar_nav");
 const btnAlive = document.getElementById("alive_btn");
+const btnDead = document.getElementById("dead_btn");
+const btnUnknown = document.getElementById("unknown_btn");
+const btnFemale = document.getElementById("female_btn");
+const btnMale = document.getElementById("male_btn");
+const btnGenderUnknown = document.getElementById("unknown_gender_btn");
+const btnReset = document.getElementById("resetBtn");
 
 let pageNumber = 1;
 let character_Name = "";
@@ -28,18 +34,33 @@ function paginationBtns(number) {
     btn.textContent = i;
     btn.addEventListener("click", function () {
       number = i;
-      loadCharacter(number, "");
+      loadCharacter(number, "", character_Status);
       highlightBtn(number);
     });
     pagination.appendChild(btn);
   }
 }
 
-btnAlive.addEventListener("click", function () {
-  c
-});
-
 paginationBtns(pageNumber);
+
+function statusCharacter(status) {
+  console.log(character_Status);
+  character_Status = status;
+
+  // sidebar.innerHTML = "";
+  // const status = ["Alive", "Dead", "Unknown"];
+  // status.map((items) => {
+  //   const btn = document.createElement("button");
+  //   btn.classList.add("status_btn");
+  //   btn.textContent = items;
+  //   btn.addEventListener("click", function () {
+  //     character_Status = items;
+  //     loadCharacter(pageNumber, "", character_Status);
+  //     highlightBtn(pageNumber);
+  //   });
+  //   sidebar.appendChild(btn);
+  // });
+}
 
 function highlightBtn(number) {
   const btns = document.querySelectorAll("button");
@@ -53,9 +74,11 @@ function highlightBtn(number) {
   });
 }
 
-function loadCharacter(page, name) {
+function loadCharacter(page, name, status) {
   loading.style.display = "block";
-  fetch(`https://rickandmortyapi.com/api/character/?name=${name}&page=${page}`)
+  fetch(
+    `https://rickandmortyapi.com/api/character/?name=${name}&page=${page}&status=${status}`
+  )
     .then((response) => response.json())
     .then((data) => {
       loading.style.display = "none";
@@ -102,7 +125,7 @@ function loadCharacter(page, name) {
     });
 }
 
-loadCharacter(pageNumber, character_Name);
+loadCharacter(pageNumber, character_Name, character_Status);
 
 backBtn.addEventListener("click", function () {
   highlightBtn(pageNumber);
@@ -116,5 +139,28 @@ nextBtn.addEventListener("click", function () {
 
 searchBtn.addEventListener("click", function () {
   const name = search.value.toLowerCase();
-  loadCharacter("", name);
+  loadCharacter("", name, "");
+});
+
+btnAlive.addEventListener("click", function () {
+  statusCharacter(btnAlive.value);
+  loadCharacter(pageNumber, "", character_Status);
+});
+
+btnDead.addEventListener("click", function () {
+  statusCharacter(btnDead.value);
+  loadCharacter(pageNumber, "", character_Status);
+});
+
+btnUnknown.addEventListener("click", function () {
+  statusCharacter(btnUnknown.value);
+  loadCharacter(pageNumber, "", character_Status);
+});
+
+resetBtn.addEventListener("click", function () {
+  search.value = "";
+  loadCharacter(1, "", "");
+  statusCharacter("");
+  highlightBtn(1);
+  paginationBtns(1);
 });
