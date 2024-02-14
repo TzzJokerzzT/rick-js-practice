@@ -35,7 +35,7 @@ function paginationBtns(number) {
     btn.textContent = i;
     btn.addEventListener("click", function () {
       number = i;
-      loadCharacter(number, "", character_Status);
+      loadCharacter(number, "", character_Status, "");
       highlightBtn(number);
     });
     pagination.appendChild(btn);
